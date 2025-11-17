@@ -219,7 +219,7 @@ export default function Testimonials({ testimonials }: TestimonialsProps) {
               px: { xs: 0, md: 4 },
             }}
           >
-            "{currentTestimonial.quote}"
+            &ldquo;{currentTestimonial.quote}&rdquo;
           </Typography>
         </CardContent>
       </Card>

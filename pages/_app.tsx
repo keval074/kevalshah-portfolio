@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, createContext } from 'react';
+import { useState, useEffect, useMemo, useCallback, createContext } from 'react';
 import type { AppProps } from 'next/app';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { PaletteMode } from '@mui/material';
@@ -51,14 +51,14 @@ export default function App({ Component, pageProps }: AppProps) {
     return () => clearTimeout(timer);
   }, [mode, mounted]);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     // Use requestAnimationFrame for smoother transition
     requestAnimationFrame(() => {
       const newMode = mode === 'light' ? 'dark' : 'light';
       setMode(newMode);
       localStorage.setItem('themeMode', newMode);
     });
-  };
+  }, [mode]);
 
   const theme = useMemo(() => getTheme(mode), [mode]);
 
@@ -67,7 +67,7 @@ export default function App({ Component, pageProps }: AppProps) {
       toggleTheme,
       mode,
     }),
-    [mode]
+    [mode, toggleTheme]
   );
 
   // Prevent flash of unstyled content

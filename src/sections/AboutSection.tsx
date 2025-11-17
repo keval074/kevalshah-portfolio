@@ -15,12 +15,12 @@ interface AboutSectionProps {
 }
 
 const highlightIcons = [
-  <TrendingIcon />,
-  <CodeIcon />,
-  <SpeedIcon />,
-  <AwardIcon />,
-  <CheckIcon />,
-  <TeamIcon />,
+  <TrendingIcon key="trending" />,
+  <CodeIcon key="code" />,
+  <SpeedIcon key="speed" />,
+  <AwardIcon key="award" />,
+  <CheckIcon key="check" />,
+  <TeamIcon key="team" />,
 ];
 
 export default function AboutSection({ about }: AboutSectionProps) {
