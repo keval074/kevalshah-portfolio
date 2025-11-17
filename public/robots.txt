@@ -1,6 +1,22 @@
-# Allow all user agents
+# Allow all crawlers
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+
+# Google Bot
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Bing Bot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
 
 # Sitemap location
-Sitemap: https://yourportfolio.com/sitemap.xml
+Sitemap: https://kevalshahportfolio.vercel.app/sitemap.xml
+
+# Host
+Host: https://kevalshahportfolio.vercel.app

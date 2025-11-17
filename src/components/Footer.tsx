@@ -1,8 +1,7 @@
-import { Box, Container, Typography, Link as MuiLink, IconButton } from '@mui/material';
+import { Box, Container, Typography, Link as MuiLink } from '@mui/material';
 import {
   GitHub as GitHubIcon,
   LinkedIn as LinkedInIcon,
-  Twitter as TwitterIcon,
   Email as EmailIcon,
 } from '@mui/icons-material';
 import { SocialLink } from '../content';
@@ -13,39 +12,8 @@ interface FooterProps {
   socialLinks: SocialLink[];
 }
 
-const getSocialIcon = (platform: string) => {
-  switch (platform.toLowerCase()) {
-    case 'github':
-      return <GitHubIcon />;
-    case 'linkedin':
-      return <LinkedInIcon />;
-    case 'twitter':
-      return <TwitterIcon />;
-    case 'email':
-      return <EmailIcon />;
-    default:
-      return null;
-  }
-};
-
-const navSections = [
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Certifications', href: '#certifications' },
-  { label: 'Contact', href: '#contact' },
-];
-
 export default function Footer({ name, email, socialLinks }: FooterProps) {
   const currentYear = new Date().getFullYear();
-
-  const handleNavClick = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <Box
@@ -77,94 +45,115 @@ export default function Footer({ name, email, socialLinks }: FooterProps) {
       <Container maxWidth="lg">
         <Box
           sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
-            gap: 4,
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 3,
           }}
         >
-          {/* Brand and Email */}
-          <Box>
-            <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
-              {name}
-            </Typography>
-            <MuiLink
-              href={`mailto:${email}`}
-              aria-label={`Send email to ${email}`}
-              sx={{
-                color: 'text.secondary',
-                display: 'block',
-                mb: 2,
-                '&:hover': {
-                  color: 'primary.main',
-                },
-              }}
-            >
-              {email}
-            </MuiLink>
-          </Box>
+          {/* LinkedIn */}
+          <MuiLink
+            href={socialLinks.find(link => link.platform.toLowerCase() === 'linkedin')?.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit LinkedIn profile"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1.5,
+              px: 4,
+              py: 2,
+              borderRadius: 2,
+              background: (theme) =>
+                theme.palette.mode === 'light'
+                  ? 'linear-gradient(135deg, #0077B5 0%, #005885 100%)'
+                  : 'linear-gradient(135deg, #0A66C2 0%, #004471 100%)',
+              color: '#fff',
+              fontWeight: 600,
+              fontSize: '1rem',
+              textDecoration: 'none',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 12px rgba(0, 119, 181, 0.3)',
+              minWidth: { xs: '100%', sm: '200px' },
+              justifyContent: 'center',
+              '&:hover': {
+                transform: 'translateY(-2px)',
+                boxShadow: '0 6px 20px rgba(0, 119, 181, 0.4)',
+              },
+            }}
+          >
+            <LinkedInIcon sx={{ fontSize: 28 }} />
+            <span>LinkedIn</span>
+          </MuiLink>
 
-          {/* Quick Links */}
-          <Box>
-            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
-              Quick Links
-            </Typography>
-            <Box
-              component="nav"
-              aria-label="Footer navigation"
-              sx={{
-                display: 'flex',
-                flexDirection: { xs: 'row', md: 'column' },
-                flexWrap: 'wrap',
-                gap: { xs: 2, md: 1 },
-              }}
-            >
-              {navSections.map((section) => (
-                <MuiLink
-                  key={section.href}
-                  onClick={() => handleNavClick(section.href)}
-                  aria-label={`Navigate to ${section.label} section`}
-                  sx={{
-                    color: 'text.secondary',
-                    cursor: 'pointer',
-                    '&:hover': {
-                      color: 'primary.main',
-                    },
-                  }}
-                >
-                  {section.label}
-                </MuiLink>
-              ))}
-            </Box>
-          </Box>
+          {/* GitHub */}
+          <MuiLink
+            href={socialLinks.find(link => link.platform.toLowerCase() === 'github')?.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit GitHub profile"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1.5,
+              px: 4,
+              py: 2,
+              borderRadius: 2,
+              background: (theme) =>
+                theme.palette.mode === 'light'
+                  ? 'linear-gradient(135deg, #24292e 0%, #1a1e22 100%)'
+                  : 'linear-gradient(135deg, #333 0%, #24292e 100%)',
+              color: '#fff',
+              fontWeight: 600,
+              fontSize: '1rem',
+              textDecoration: 'none',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 12px rgba(36, 41, 46, 0.3)',
+              minWidth: { xs: '100%', sm: '200px' },
+              justifyContent: 'center',
+              '&:hover': {
+                transform: 'translateY(-2px)',
+                boxShadow: '0 6px 20px rgba(36, 41, 46, 0.4)',
+              },
+            }}
+          >
+            <GitHubIcon sx={{ fontSize: 28 }} />
+            <span>GitHub</span>
+          </MuiLink>
 
-          {/* Social Links */}
-          <Box>
-            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
-              Connect
-            </Typography>
-            <Box sx={{ display: 'flex', gap: 1 }}>
-              {socialLinks.map((link) => (
-                <IconButton
-                  key={link.platform}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Visit ${link.platform}`}
-                  sx={{
-                    color: 'text.secondary',
-                    minWidth: 44,
-                    minHeight: 44,
-                    '&:hover': {
-                      color: 'primary.main',
-                      backgroundColor: 'action.hover',
-                    },
-                  }}
-                >
-                  {getSocialIcon(link.platform)}
-                </IconButton>
-              ))}
-            </Box>
-          </Box>
+          {/* Email */}
+          <MuiLink
+            href={`mailto:${email}`}
+            aria-label="Send email"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1.5,
+              px: 4,
+              py: 2,
+              borderRadius: 2,
+              background: (theme) =>
+                theme.palette.mode === 'light'
+                  ? 'linear-gradient(135deg, #EA4335 0%, #C5221F 100%)'
+                  : 'linear-gradient(135deg, #EA4335 0%, #B31412 100%)',
+              color: '#fff',
+              fontWeight: 600,
+              fontSize: '1rem',
+              textDecoration: 'none',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 12px rgba(234, 67, 53, 0.3)',
+              minWidth: { xs: '100%', sm: '200px' },
+              justifyContent: 'center',
+              '&:hover': {
+                transform: 'translateY(-2px)',
+                boxShadow: '0 6px 20px rgba(234, 67, 53, 0.4)',
+              },
+            }}
+          >
+            <EmailIcon sx={{ fontSize: 28 }} />
+            <span>Email</span>
+          </MuiLink>
         </Box>
 
       </Container>

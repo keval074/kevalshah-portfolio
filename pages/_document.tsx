@@ -38,13 +38,27 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="en">
+      <Html lang="en" dir="ltr">
         <Head>
           {(this.props as any).emotionStyleTags}
           
-          {/* Favicon */}
-          <link rel="icon" href="/favicon.ico" />
-          <meta name="theme-color" content="#0EA5E9" />
+          {/* Favicon and Icons */}
+          <link rel="icon" href="/favicon.ico" sizes="any" />
+          <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+          <link rel="manifest" href="/manifest.json" />
+          
+          {/* Preconnect to external domains for performance */}
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+          
+          {/* Theme Color */}
+          <meta name="theme-color" content="#0EA5E9" media="(prefers-color-scheme: light)" />
+          <meta name="theme-color" content="#0F172A" media="(prefers-color-scheme: dark)" />
+          
+          {/* Performance Hints */}
+          <meta httpEquiv="x-dns-prefetch-control" content="on" />
         </Head>
         <body>
           <Main />

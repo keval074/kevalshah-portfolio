@@ -266,11 +266,9 @@ For comprehensive deployment instructions, including:
 
 ### Production URL
 
-Once deployed, your site will be live at:
-- **Vercel:** `https://your-portfolio.vercel.app` (or your custom domain)
-- **Netlify:** `https://your-site.netlify.app` (or your custom domain)
+🌐 **Live Site:** [https://kevalshahportfolio.vercel.app](https://kevalshahportfolio.vercel.app)
 
-Update this section with your actual production URL after deployment.
+Deployed on Vercel from the `main` branch.
 
 ## 📁 Project Structure
 

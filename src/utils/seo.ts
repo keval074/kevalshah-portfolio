@@ -10,6 +10,30 @@ export interface PersonSchemaProps {
   url: string;
   sameAs?: string[];
   image?: string;
+  location?: string;
+}
+
+export interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+export interface OrganizationSchemaProps {
+  name: string;
+  url: string;
+  logo?: string;
+  description: string;
+  email: string;
+  sameAs?: string[];
+}
+
+export interface ProfessionalServiceSchemaProps {
+  name: string;
+  description: string;
+  url: string;
+  provider: string;
+  areaServed: string;
+  serviceType: string;
 }
 
 export interface WebSiteSchemaProps {
@@ -36,6 +60,27 @@ export function generatePersonSchema(props: PersonSchemaProps): string {
     url: props.url,
     ...(props.sameAs && props.sameAs.length > 0 && { sameAs: props.sameAs }),
     ...(props.image && { image: props.image }),
+    ...(props.location && { 
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: props.location,
+        addressCountry: 'IN'
+      }
+    }),
+    knowsAbout: [
+      'React.js',
+      'Next.js',
+      'JavaScript',
+      'TypeScript',
+      'Node.js',
+      'Web Development',
+      'Frontend Development',
+      'Full Stack Development'
+    ],
+    alumniOf: {
+      '@type': 'Organization',
+      name: 'Software Engineering'
+    }
   };
 
   return JSON.stringify(schema);
@@ -128,4 +173,74 @@ export function generateAllMetaTags(
     ...generateOpenGraphTags(title, description, url, image),
     ...generateTwitterCardTags(title, description, image),
   };
+}
+
+/**
+ * Generate Breadcrumb JSON-LD schema for structured data
+ * Helps search engines understand site navigation hierarchy
+ * 
+ * @param items - Array of breadcrumb items
+ * @returns JSON-LD script content as string
+ */
+export function generateBreadcrumbSchema(items: BreadcrumbItem[]): string {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+
+  return JSON.stringify(schema);
+}
+
+/**
+ * Generate Organization JSON-LD schema for structured data
+ * Helps search engines understand the organization/business
+ * 
+ * @param props - Organization schema properties
+ * @returns JSON-LD script content as string
+ */
+export function generateOrganizationSchema(props: OrganizationSchemaProps): string {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: props.name,
+    url: props.url,
+    ...(props.logo && { logo: props.logo }),
+    description: props.description,
+    email: props.email,
+    ...(props.sameAs && props.sameAs.length > 0 && { sameAs: props.sameAs }),
+  };
+
+  return JSON.stringify(schema);
+}
+
+/**
+ * Generate ProfessionalService JSON-LD schema for structured data
+ * Helps search engines understand the professional services offered
+ * 
+ * @param props - Professional service schema properties
+ * @returns JSON-LD script content as string
+ */
+export function generateProfessionalServiceSchema(props: ProfessionalServiceSchemaProps): string {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: props.name,
+    description: props.description,
+    url: props.url,
+    provider: {
+      '@type': 'Person',
+      name: props.provider,
+    },
+    areaServed: props.areaServed,
+    serviceType: props.serviceType,
+    priceRange: '$$',
+  };
+
+  return JSON.stringify(schema);
 }

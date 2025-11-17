@@ -14,10 +14,16 @@ import BackToTop from '../src/components/BackToTop';
 import CursorFollower from '../src/components/CursorFollower';
 import AnimatedBackground from '../src/components/AnimatedBackground';
 import { contentConfig } from '../src/content';
-import { generatePersonSchema, generateWebSiteSchema } from '../src/utils/seo';
+import { 
+  generatePersonSchema, 
+  generateWebSiteSchema, 
+  generateBreadcrumbSchema,
+  generateOrganizationSchema,
+  generateProfessionalServiceSchema 
+} from '../src/utils/seo';
 
 export default function Home() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yourportfolio.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kevalshahportfolio.vercel.app';
   const formEndpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
 
   const personSchema = generatePersonSchema({
@@ -27,6 +33,8 @@ export default function Home() {
     email: contentConfig.email,
     url: siteUrl,
     sameAs: contentConfig.socialLinks.map(link => link.url),
+    image: `${siteUrl}/profile.jpg`,
+    location: contentConfig.location,
   });
 
   const websiteSchema = generateWebSiteSchema({
@@ -35,37 +43,81 @@ export default function Home() {
     description: contentConfig.summary,
   });
 
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: siteUrl },
+  ]);
+
+  const organizationSchema = generateOrganizationSchema({
+    name: contentConfig.name,
+    url: siteUrl,
+    logo: `${siteUrl}/logo.png`,
+    description: contentConfig.summary,
+    email: contentConfig.email,
+    sameAs: contentConfig.socialLinks.map(link => link.url),
+  });
+
+  const professionalServiceSchema = generateProfessionalServiceSchema({
+    name: `${contentConfig.name} - ${contentConfig.title}`,
+    description: contentConfig.summary,
+    url: siteUrl,
+    provider: contentConfig.name,
+    areaServed: 'Worldwide',
+    serviceType: 'Software Development',
+  });
+
   return (
     <>
       <Head>
-        <title>{`${contentConfig.name} - ${contentConfig.title}`}</title>
-        <meta name="description" content={contentConfig.summary} />
+        <title>{`${contentConfig.name} - ${contentConfig.title} | React.js & Next.js Expert`}</title>
+        <meta name="description" content={`${contentConfig.summary} Specializing in healthcare & government web applications. Available for hire.`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
-        {/* Additional SEO Meta Tags */}
+        {/* Enhanced SEO Meta Tags */}
         <meta name="author" content={contentConfig.name} />
-        <meta name="keywords" content={`${contentConfig.title}, ${contentConfig.skills.map(s => s.name).join(', ')}, portfolio, web developer`} />
-        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content={`${contentConfig.name}, ${contentConfig.title}, React.js Developer, Next.js Developer, Frontend Engineer, Full Stack Developer, ${contentConfig.skills.slice(0, 15).map(s => s.name).join(', ')}, Web Development, Software Engineer, Healthcare Software, Government Applications, ${contentConfig.location}, Hire React Developer, Portfolio`} />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
         <meta name="language" content="English" />
         <meta name="revisit-after" content="7 days" />
+        <meta name="rating" content="general" />
+        <meta name="distribution" content="global" />
+        <meta name="coverage" content="Worldwide" />
+        <meta name="target" content="all" />
+        <meta name="HandheldFriendly" content="True" />
+        <meta name="MobileOptimized" content="320" />
+        
+        {/* Geo Tags */}
+        <meta name="geo.region" content="IN-GJ" />
+        <meta name="geo.placename" content={contentConfig.location} />
+        
+        {/* Professional Tags */}
+        <meta property="profile:first_name" content={contentConfig.name.split(' ')[0]} />
+        <meta property="profile:last_name" content={contentConfig.name.split(' ')[1]} />
+        <meta property="profile:username" content={contentConfig.name.toLowerCase().replace(' ', '')} />
         
         {/* Theme Color for Mobile Browsers */}
         <meta name="theme-color" content="#0EA5E9" />
         <meta name="msapplication-TileColor" content="#0EA5E9" />
         
         {/* Open Graph */}
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="profile" />
         <meta property="og:url" content={siteUrl} />
-        <meta property="og:title" content={`${contentConfig.name} - ${contentConfig.title}`} />
-        <meta property="og:description" content={contentConfig.summary} />
+        <meta property="og:title" content={`${contentConfig.name} - ${contentConfig.title} | React.js & Next.js Expert`} />
+        <meta property="og:description" content={`${contentConfig.summary} Specializing in healthcare & government web applications.`} />
         <meta property="og:image" content={`${siteUrl}/og-image.jpg`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={`${contentConfig.name} - Portfolio`} />
         <meta property="og:site_name" content={contentConfig.name} />
+        <meta property="og:locale" content="en_US" />
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${contentConfig.name} - ${contentConfig.title}`} />
-        <meta name="twitter:description" content={contentConfig.summary} />
+        <meta name="twitter:site" content="@kevalshah" />
+        <meta name="twitter:creator" content="@kevalshah" />
+        <meta name="twitter:title" content={`${contentConfig.name} - ${contentConfig.title} | React.js & Next.js Expert`} />
+        <meta name="twitter:description" content={`${contentConfig.summary} Specializing in healthcare & government web applications.`} />
         <meta name="twitter:image" content={`${siteUrl}/og-image.jpg`} />
+        <meta name="twitter:image:alt" content={`${contentConfig.name} - Portfolio`} />
         
         {/* Canonical URL */}
         <link rel="canonical" href={siteUrl} />
@@ -73,11 +125,23 @@ export default function Home() {
         {/* JSON-LD Structured Data */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+          dangerouslySetInnerHTML={{ __html: personSchema }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+          dangerouslySetInnerHTML={{ __html: websiteSchema }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: breadcrumbSchema }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: organizationSchema }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: professionalServiceSchema }}
         />
       </Head>
 

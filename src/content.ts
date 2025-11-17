@@ -108,7 +108,7 @@ export const contentConfig: ContentConfig = {
   // Personal Information
   name: 'Keval Shah',
   title: 'Sr. Software Engineer',
-  summary: 'Senior Software Engineer specializing in React.js, Next.js, Node.js & AWS. Delivering scalable web solutions for healthcare & government sectors.',
+  summary: 'Senior Software Engineer specializing in React.js, Next.js, Node.js & AWS. Delivering scalable web solutions for healthcare & government sectors. Expert in building high-performance web applications with 5+ years of experience.',
   email: 'kevalshah074@gmail.com',
   resumeUrl: '/Keval-Shah-Resume.pdf',
   location: 'Gujarat, India',
