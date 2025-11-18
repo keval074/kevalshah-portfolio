@@ -44,9 +44,15 @@ export default class MyDocument extends Document {
           
           {/* Favicon and Icons */}
           <link rel="icon" href="/favicon.ico" sizes="any" />
-          <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+          <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
           <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
           <link rel="manifest" href="/manifest.json" />
+          
+          {/* PWA Meta Tags */}
+          <meta name="mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+          <meta name="apple-mobile-web-app-title" content="Keval Shah" />
           
           {/* Preconnect to external domains for performance */}
           <link rel="preconnect" href="https://fonts.googleapis.com" />
