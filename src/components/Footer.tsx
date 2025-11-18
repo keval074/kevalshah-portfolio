@@ -155,54 +155,30 @@ export default function Footer({ name, email, socialLinks }: FooterProps) {
             <span>Email</span>
           </MuiLink>
         </Box>
-
       </Container>
 
-      {/* Fixed Copyright Bar */}
+      {/* Fixed Copyright at Bottom */}
       <Box
         sx={{
           position: 'fixed',
-          bottom: 16,
+          bottom: 8,
           left: '50%',
           transform: 'translateX(-50%)',
-          zIndex: 1100,
-          width: { xs: 'calc(100% - 32px)', md: 'auto' },
-          maxWidth: { xs: '100%', md: '500px' },
+          zIndex: 1000,
         }}
       >
-        <Box
-          sx={{
-            px: 3,
-            py: 1,
-            borderRadius: 50,
-            background: (theme) =>
-              theme.palette.mode === 'light'
-                ? 'rgba(255, 255, 255, 0.8)'
-                : 'rgba(15, 30, 50, 0.8)',
-            backdropFilter: 'blur(20px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-            border: '1px solid',
-            borderColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? 'rgba(14, 165, 233, 0.1)'
-                : 'rgba(56, 189, 248, 0.2)',
-            boxShadow: (theme) =>
-              theme.palette.mode === 'light'
-                ? '0 8px 32px rgba(14, 165, 233, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)'
-                : '0 8px 32px rgba(56, 189, 248, 0.15), 0 2px 8px rgba(0, 0, 0, 0.3)',
-            textAlign: 'center',
+        <Typography 
+          variant="body2" 
+          sx={{ 
+            color: 'text.secondary',
+            fontSize: '0.75rem',
+            fontWeight: 400,
+            opacity: 0.6,
+            whiteSpace: 'nowrap',
           }}
         >
-          <Typography 
-            variant="body2" 
-            sx={{ 
-              color: 'text.secondary',
-              fontSize: '0.75rem',
-            }}
-          >
-            © {currentYear} {name}. All rights reserved.
-          </Typography>
-        </Box>
+          © {currentYear} {name}. All rights reserved.
+        </Typography>
       </Box>
     </Box>
   );

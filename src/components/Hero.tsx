@@ -37,6 +37,8 @@ export default function Hero({ name, title, summary, tagline, ctaButtons, locati
             ? 'linear-gradient(135deg, #F1F5F9 0%, #E0F2FE 30%, #DBEAFE 50%, #E0F2FE 70%, #F1F5F9 100%)'
             : 'linear-gradient(135deg, #0F172A 0%, #1E3A8A 30%, #0C4A6E 70%, #0F172A 100%)',
         px: { xs: 2, sm: 3 },
+        pt: { xs: 10, sm: 12, md: 14 },
+        pb: { xs: 12, sm: 14, md: 16 },
         overflow: 'hidden',
         width: '100%',
         '&::before': {
@@ -254,7 +256,7 @@ export default function Hero({ name, title, summary, tagline, ctaButtons, locati
         aria-label="Scroll down to about section"
         sx={{
           position: 'absolute',
-          bottom: { xs: 20, sm: 40, md: 60 },
+          bottom: { xs: 10, sm: 30, md: 40 },
           left: '50%',
           transform: 'translateX(-50%)',
           cursor: 'pointer',
